@@ -1,10 +1,11 @@
-package com.jwt.demo.controller;
+package com.jwt.demo.controller.auController;
 
 import com.jwt.demo.exception.UserException;
 import com.jwt.demo.jwt.JwtUtil;
 import com.jwt.demo.model.User;
 import com.jwt.demo.model.dto.AuthenticationRequest;
 import com.jwt.demo.model.dto.AuthenticationResponse;
+import com.jwt.demo.model.dto.UserResponse;
 import com.jwt.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,14 +59,15 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    @GetMapping("/user")
+    @GetMapping("/getUserByToken")
     public ResponseEntity<?> userInfo(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         User user = userService.findByUsername(username);
+        UserResponse response = new UserResponse(user.getId(),user.getUsername(), user.getRole().toString());
         if (null == user){
             throw new UserException("user not found!!!");
         }
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(response);
     }
 }

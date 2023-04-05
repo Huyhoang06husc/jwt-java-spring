@@ -1,4 +1,4 @@
-package com.jwt.demo.config;
+package com.jwt.demo.config.security;
 
 import com.jwt.demo.jwt.JwtAuthenticationEntryPoint;
 import com.jwt.demo.jwt.JwtFilter;
