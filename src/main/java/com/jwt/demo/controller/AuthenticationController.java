@@ -1,5 +1,6 @@
 package com.jwt.demo.controller;
 
+import com.jwt.demo.exception.UserException;
 import com.jwt.demo.jwt.JwtUtil;
 import com.jwt.demo.model.User;
 import com.jwt.demo.model.dto.AuthenticationRequest;
@@ -37,8 +38,10 @@ public class AuthenticationController {
     public ResponseEntity<User> getUser(@PathVariable("username") String username){
 
         User user = userService.findByUsername(username);
-
-        return new ResponseEntity<User>(user,HttpStatus.OK);
+        if (null == user){
+            throw new UserException("user not found!!!");
+        }
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @PostMapping("/authenticate")
@@ -60,6 +63,9 @@ public class AuthenticationController {
         String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         User user = userService.findByUsername(username);
+        if (null == user){
+            throw new UserException("user not found!!!");
+        }
         return ResponseEntity.ok(user);
     }
 }

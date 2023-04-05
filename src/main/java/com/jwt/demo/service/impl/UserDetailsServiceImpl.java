@@ -2,7 +2,6 @@ package com.jwt.demo.service.impl;
 
 import com.jwt.demo.model.User;
 import com.jwt.demo.repository.UserRepository;
-import com.jwt.demo.service.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
