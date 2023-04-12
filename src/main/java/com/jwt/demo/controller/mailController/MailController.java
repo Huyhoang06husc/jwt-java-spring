@@ -1,5 +1,6 @@
 package com.jwt.demo.controller.mailController;
 
+import com.jwt.demo.exception.SendMailException;
 import com.jwt.demo.model.EmailDetail;
 import com.jwt.demo.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,10 @@ public class MailController {
     @PostMapping(value = "/sendMail")
     public ResponseEntity<?> sendMail(@RequestBody EmailDetail emailDetail) {
         try {
-            String status =
-                    emailService.sendSimpleMail(emailDetail);
-            return new ResponseEntity<>(status, HttpStatus.OK);
+            emailService.sendSimpleMail(emailDetail);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e, HttpStatus.EXPECTATION_FAILED);
+            throw new SendMailException("Currently, the send mail server is having problems. Please try again later.");
         }
     }
 

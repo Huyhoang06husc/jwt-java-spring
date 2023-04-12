@@ -45,10 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/authenticate").permitAll() // Allow access to this URI without authentication
-                .antMatchers("/api/**").authenticated() // Require authentication for all other URIs under /api/
+                .antMatchers("/api/authenticate").permitAll()
+                .antMatchers("/api/**").authenticated()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless session since we're using JWT
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

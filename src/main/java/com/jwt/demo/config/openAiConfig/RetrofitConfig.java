@@ -1,7 +1,5 @@
 package com.jwt.demo.config.openAiConfig;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.jwt.demo.service.OpenAIInterface;
 import com.squareup.moshi.Moshi;
 import okhttp3.OkHttpClient;

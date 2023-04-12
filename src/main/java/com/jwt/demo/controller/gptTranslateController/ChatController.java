@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,8 +22,8 @@ public class ChatController {
     private OpenAIChatGPTAPIService openAIChatGPTAPIService;
 
 
-    @PostMapping
-    public ResponseEntity<?> grammar(@RequestParam String text) throws IOException {
+    @PostMapping("/gpt")
+    public ResponseEntity<?> grammar(@RequestParam String text){
         OpenAIResponse response = openAIChatGPTAPIService.sendMessage(text);
         if (null == response){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -17,12 +17,12 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
 
-        Employee employee1 = employeeService.insert(employee);
+        Employee currentEmployee = employeeService.insert(employee);
 
-        if (null == employee1){
-            return new ResponseEntity<>(employee1, HttpStatus.BAD_REQUEST);
+        if (null == currentEmployee){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(employee1, HttpStatus.OK);
+        return new ResponseEntity<>(currentEmployee, HttpStatus.OK);
     }
 
     @GetMapping("/{idEmployee}")
@@ -30,7 +30,7 @@ public class EmployeeController {
 
         Employee employee = employeeService.findById(idEmployee);
         if (null == employee){
-            return new ResponseEntity<>(employee, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
