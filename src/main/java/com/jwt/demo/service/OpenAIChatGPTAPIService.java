@@ -29,6 +29,7 @@ public class OpenAIChatGPTAPIService {
         OpenAIRequest ai = new OpenAIRequest();
         ai.setModel(OpenAIConstants.MODEL);
         ai.setPrompt(text);
+        ai.setMax_tokens(2048);
         ai.setFrequency_penalty(0);
         ai.setPresence_penalty(0);
         HttpEntity entity = new HttpEntity(ai, headers);

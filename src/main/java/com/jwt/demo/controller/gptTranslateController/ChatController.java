@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,12 +24,18 @@ public class ChatController {
 
 
     @PostMapping("/gpt")
-    public ResponseEntity<?> grammar(@RequestParam String text){
+    public ResponseEntity<String> grammar(@RequestParam String text) {
         OpenAIResponse response = openAIChatGPTAPIService.sendMessage(text);
-        if (null == response){
+        if (null == response) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(response.getChoicesList().stream().map(Choices::getText).collect(Collectors.toList())
+
+        List<String> responseList = response.getChoicesList().stream().map(Choices::getText).collect(Collectors.toList());
+
+        String finalResponse = responseList.get(0);
+        finalResponse = finalResponse.replace("\n", System.getProperty("line.separator"));
+        return new ResponseEntity<>(finalResponse
                 , HttpStatus.OK);
+
     }
 }
